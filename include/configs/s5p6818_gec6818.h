@@ -103,7 +103,7 @@
 #ifdef CONFIG_SYS_PROMPT
 #undef CONFIG_SYS_PROMPT
 /* Monitor Command Prompt */
-#define CONFIG_SYS_PROMPT		"nanopi3# "
+#define CONFIG_SYS_PROMPT		"gec6818_YJH# "
 #endif
 /* undef to save memory */
 #define CONFIG_SYS_LONGHELP
@@ -136,6 +136,12 @@
 #define CONFIG_REVISION_TAG
 #undef CONFIG_BOOTM_NETBSD
 #undef CONFIG_BOOTM_RTEMS
+
+/* NET work */
+#define CONFIG_PHY_REALTEK
+#define CONFIG_PHY_GIGE
+#define CONFIG_MII
+#define CONFIG_CMD_MII
 
 /*-----------------------------------------------------------------------
  * serial console configuration
@@ -301,6 +307,12 @@
  */
 #define CONFIG_SYS_EXTRA_ENV_RELOC
 
+#define CONFIG_NET_ENV_S5P6818_CONFIG				\
+	"gatewayip=192.168.1.1\0"				\
+	"netmask=255.255.255.0\0"				\
+	"ipaddr=192.168.1.100\0"				\
+	"serverip=192.168.1.10\0"
+
 #define CONFIG_BLOADER_MMC					\
 	"ext4load mmc ${rootdev}:${bootpart} "
 
@@ -334,7 +346,7 @@
 	"bootpart=" __stringify(CONFIG_BOOT_PART) "\0"		\
 	"kernel=Image\0"					\
 	"loadaddr=0x40080000\0"					\
-	"dtb_name=s5p6818-nanopi3-rev01.dtb\0"			\
+	"dtb_name=s5p6818-gec6818-rev01.dtb\0"			\
 	"dtb_addr=" __stringify(CONFIG_KERNEL_DTB_ADDR) "\0"	\
 	"initrd_name=ramdisk.img\0"				\
 	"initrd_addr=0x48000000\0"				\
@@ -351,6 +363,7 @@
 		"run load_kernel; run load_initrd; run load_dtb; "	\
 		"booti ${loadaddr} ${initrd_addr}:${initrd_size} ${dtb_addr}\0"	\
 	"bootcmd=run mmcboot\0"					\
-	CONFIG_EXTRA_ENV_BOOT_LOGO
+	CONFIG_EXTRA_ENV_BOOT_LOGO				\
+	CONFIG_NET_ENV_S5P6818_CONFIG
 
 #endif /* __CONFIG_H__ */
